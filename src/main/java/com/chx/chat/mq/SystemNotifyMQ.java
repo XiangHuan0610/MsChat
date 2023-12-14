@@ -1,8 +1,9 @@
 package com.chx.chat.mq;
 
 import com.chx.chat.constant.RabbitMQCodeConstant;
+import com.chx.chat.entity.SystemNotifyInfoEntity;
 import com.chx.chat.netty.service.WebSocketService;
-import com.chx.chat.utils.Query;
+import com.chx.chat.service.SystemNotifyInfoService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -10,10 +11,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.config.FreeMarkerConfigurerBeanDefinitionParser;
 
 import java.io.IOException;
-import java.io.Serial;
 
 /**
  * @Author: 无敌代码写手
@@ -21,24 +20,22 @@ import java.io.Serial;
  */
 @Slf4j
 @Service
-@RabbitListener(queues = {RabbitMQCodeConstant.CHAT_RELIABLE_MESSAGE_QUEUE})
-public class UmsDelayMessageMQ {
+@RabbitListener(queues = RabbitMQCodeConstant.CHAT_NOTIFY_INFO_QUEUE)
+public class SystemNotifyMQ {
 
     @Autowired
-    private WebSocketService webSocketService;
+    private SystemNotifyInfoService notifyInfoService;
 
     @RabbitHandler
-    public void orderTransactionalBack(String msgId, Message message, Channel channel) throws IOException {
-        log.info("收到消息ID: " + msgId);
+    public void orderTransactionalBack(SystemNotifyInfoEntity notifyInfoEntity, Message message, Channel channel) throws IOException {
+        log.info("收到添加好友通知: " + notifyInfoEntity.toString());
         try{
-            if (webSocketService.containsMessageKey(msgId)) {
-                // 重发
-                log.info("存在消息:" + msgId);
-                webSocketService.send(webSocketService.getMessage(msgId));
-            }
+
+            notifyInfoService.addNotify(notifyInfoEntity);
             channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         } catch (IOException e) {
             channel.basicReject(message.getMessageProperties().getDeliveryTag(),false);
         }
     }
+
 }

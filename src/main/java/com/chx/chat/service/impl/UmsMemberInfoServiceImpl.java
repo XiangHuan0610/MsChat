@@ -2,9 +2,8 @@ package com.chx.chat.service.impl;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.chx.chat.config.RedisService;
+import com.chx.chat.config.redis.RedisService;
 import com.chx.chat.constant.SystemCodeConstant;
 import com.chx.chat.entity.UmsMemberInfoEntity;
 import com.chx.chat.enums.AppHttpCodeEnum;

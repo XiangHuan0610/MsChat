@@ -1,9 +1,15 @@
 package com.chx.chat.netty.util;
 
+import com.chx.chat.netty.entity.Message;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bouncycastle.asn1.x500.AttributeTypeAndValue;
+
 
 import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @Author: 无敌代码写手
@@ -37,5 +43,18 @@ public class JsonUtil {
             throw new RuntimeException(e);
         }
         return data;
+    }
+
+    public static LinkedBlockingQueue<Message> blockingQueueParse(String json) throws JsonProcessingException {
+        TypeReference<LinkedBlockingQueue<Message>> typeReference =  new TypeReference<LinkedBlockingQueue<Message>>(){};
+        LinkedBlockingQueue<Message> messages = mapper.readValue(json, typeReference);
+        return messages;
+    }
+
+    public static List<Message> messageCollectionParse(List<String> caches) throws JsonProcessingException {
+        String json = message(caches);
+        TypeReference<List<Message>> messages = new TypeReference<>(){};
+        List<Message> msg = mapper.readValue(json, messages);
+        return msg;
     }
 }

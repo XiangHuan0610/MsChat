@@ -14,6 +14,8 @@ import java.time.temporal.ChronoUnit;
  */
 public class TimeUtil {
 
+    public static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+
     public static final String TIME_SHANGHAI = "Asia/Shanghai";
 
     public static void main(String[] args) {

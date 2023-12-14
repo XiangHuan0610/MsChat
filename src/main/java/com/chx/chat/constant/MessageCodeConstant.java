@@ -8,4 +8,5 @@ package com.chx.chat.constant;
 public class MessageCodeConstant {
     public static final Integer MESSAGE_SUCCESS = 200;
     public static final Integer MESSAGE_ERROR = 500;
+    public static final Integer MESSAGE_TEXT_TYPE = 1;
 }

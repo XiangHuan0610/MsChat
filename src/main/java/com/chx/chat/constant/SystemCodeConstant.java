@@ -6,5 +6,7 @@ package com.chx.chat.constant;
  */
 public class SystemCodeConstant {
     public static final String USER_INFO_PREFIX = "user:";
-    public static final String OFFLINE_USER = "offline_user:" ;
+    public static final String OFFLINE_USER_EXPIRATION = "offline_user_expiration:" ;
+
+    public static final String OFFLINE_USER_KEY = "offline_user:";
 }

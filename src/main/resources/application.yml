@@ -3,6 +3,10 @@ spring:
     name: ms-chat
   profiles:
     active: dev
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -11,6 +15,11 @@ spring:
     url: jdbc:mysql://192.168.23.129:3306/im_chat?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: root
+  oss:
+    accessKey: 9Rj9lMl9x3hUtjlviQVHGczQ8gDOaCanUqraLzFp
+    secretKey: ruOB8qtj-E4OAniq6QSNQfxrScnLF2jPDDPG9aQl
+    bucket: milsun
+    domainname: https://cloud.gzmilsun.com/
   rabbitmq:
     host: 192.168.23.129
     port: 5673

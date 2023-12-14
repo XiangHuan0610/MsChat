@@ -6,6 +6,7 @@ import com.chx.chat.netty.entity.Message;
 import com.chx.chat.netty.entity.MessageContent;
 import com.chx.chat.netty.service.WebSocketService;
 import com.chx.chat.netty.util.JsonUtil;
+import com.chx.chat.utils.TimeUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -47,12 +48,11 @@ public class WebSocketChatServerHandler extends SimpleChannelInboundHandler<Text
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
-        log.info("msg: " + msg.text());
-        Message message = JsonUtil.parse(msg.text(), Message.class);
 
+        Message message = JsonUtil.parse(msg.text(), Message.class);
+        message.getMsg().setSendTime(TimeUtil.now());
         if (message.getAck().equals(MessageCodeConstant.MESSAGE_SUCCESS)){
             // 如果消费者回复200，则表示收到消息。
-            log.info("收到消息:" + message.toString());
             webSocketService.del200Message(message.getMsgId());
         }else if(message.getAck().equals(MessageCodeConstant.MESSAGE_ERROR)){
             // 如果消费者回复500,则表示消息有问题
@@ -65,15 +65,7 @@ public class WebSocketChatServerHandler extends SimpleChannelInboundHandler<Text
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        if (evt instanceof IdleStateEvent){
-            log.info("userEventTriggered" + ctx.channel().id());
-            ctx.writeAndFlush(new TextWebSocketFrame(new Message("00121",0,new MessageContent(1L,2L,"fds")).toString()));
 
-            // 在规定的时间没有收到ACK就重新发送
-            ScheduledFuture<?> scheduledFuture = ctx.executor().schedule(() -> {
-                log.info("未收到消息返回");
-            }, 1, TimeUnit.SECONDS);
-        }
     }
 
     @Override

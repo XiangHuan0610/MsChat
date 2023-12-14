@@ -1,5 +1,6 @@
 package com.chx.chat.netty.service;
 
+import com.chx.chat.entity.SystemNotifyInfoEntity;
 import com.chx.chat.netty.entity.Message;
 import io.netty.channel.Channel;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,6 @@ public interface WebSocketService {
 
 
     Message getMessage(String msgId);
+
+    void friendNotify(SystemNotifyInfoEntity notifyInfoEntity);
 }

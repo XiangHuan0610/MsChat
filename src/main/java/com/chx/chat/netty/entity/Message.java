@@ -18,6 +18,8 @@ import java.io.Serializable;
 public class Message implements Serializable {
     private String msgId;
 
+    private Integer type;
+
     private Integer ack;
 
     private MessageContent msg;

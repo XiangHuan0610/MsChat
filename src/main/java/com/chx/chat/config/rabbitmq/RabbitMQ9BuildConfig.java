@@ -1,4 +1,4 @@
-package com.chx.chat.config;
+package com.chx.chat.config.rabbitmq;
 
 import com.chx.chat.constant.RabbitMQCodeConstant;
 import org.springframework.amqp.core.*;

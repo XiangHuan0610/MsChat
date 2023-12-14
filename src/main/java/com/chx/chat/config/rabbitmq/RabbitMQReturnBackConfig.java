@@ -1,4 +1,4 @@
-package com.chx.chat.config;
+package com.chx.chat.config.rabbitmq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.ReturnedMessage;

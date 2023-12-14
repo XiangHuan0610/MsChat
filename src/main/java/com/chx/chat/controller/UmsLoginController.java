@@ -4,7 +4,6 @@ import com.chx.chat.entity.UmsMemberInfoEntity;
 import com.chx.chat.http.HttpLoginRequest;
 import com.chx.chat.netty.service.WebSocketService;
 import com.chx.chat.service.UmsMemberInfoService;
-import com.chx.chat.service.impl.UmsMemberInfoServiceImpl;
 import com.chx.chat.utils.R;
 import com.chx.chat.utils.ResultUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/ums")
-public class UmsController {
+public class UmsLoginController {
 
 
     @Autowired
@@ -40,8 +39,8 @@ public class UmsController {
 
     /**
      * 登录
-     * @param uid
-     * @return R
+     * @param request
+     * @return
      * @throws JsonProcessingException
      */
     @PostMapping("/toLogin")

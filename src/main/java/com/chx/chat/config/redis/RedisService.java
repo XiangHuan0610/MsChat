@@ -1,5 +1,6 @@
-package com.chx.chat.config;
+package com.chx.chat.config.redis;
 
+import com.chx.chat.netty.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
@@ -143,7 +144,7 @@ public class RedisService
         return count == null ? 0 : count;
     }
 
-    public <T> long set(final String key, final T dataList)
+    public <T> long setList(final String key, final T dataList)
     {
         Long count = redisTemplate.opsForList().rightPushAll(key, dataList);
         return count == null ? 0 : count;
@@ -277,4 +278,5 @@ public class RedisService
     {
         return redisTemplate.keys(pattern);
     }
+
 }
