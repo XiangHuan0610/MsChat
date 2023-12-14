@@ -32,6 +32,7 @@ public class KeyExpiredListener implements MessageListener {
             List<com.chx.chat.netty.entity.Message> messages = JsonUtil.messageCollectionParse(caches);
             // TODO 将离线消息添加到数据库
 
+            // 删除缓存中的离线消息
             redisService.deleteObject(SystemCodeConstant.OFFLINE_USER_KEY + uid);
         }
     }
